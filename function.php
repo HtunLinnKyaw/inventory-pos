@@ -1,6 +1,6 @@
 <?php
 
-include_once "core/connectdb.php";
+include_once "connectdb.php";
 // login code
 
 function login(){

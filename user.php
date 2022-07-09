@@ -1,13 +1,13 @@
 <?php
 
-include_once "core/connectdb.php";
+include_once "connectdb.php";
 session_start();
 
-if($_SESSION['useremail']==""){
+if($_SESSION['useremail']=="" OR $_SESSION['role']=='Admin'){
     header('location:index.php');
 }
 
-include_once "template/header_user.php";
+include_once "header_user.php";
 
 ?>
 
@@ -39,6 +39,6 @@ include_once "template/header_user.php";
 
 <?php
 
-include_once "template/footer_user.php"
+include_once "footer_user.php"
 
 ?>
