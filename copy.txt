@@ -1,0 +1,55 @@
+<script type="text/javascript">
+                jQuery(function validation() {
+                 Swal.fire({
+                      position: \'center\',
+                      icon: \'success\',
+                      title: "Good Job!",
+                      text: \'Account is deleted\',
+                      showConfirmButton: false,
+                      timer: 1500
+                    });
+                });
+            </script>
+			
+			 $error = '<script type="text/javascript">
+                jQuery(function validation() {
+                Swal.fire({
+                    position: \'center\',
+                    icon: \'error\',
+                    title: "Error!",
+                    text: \'Max File should be 1MB\',
+                    showConfirmButton: false,
+                    timer: 1500
+                    });
+                });
+            </script>';
+
+            echo $error;
+			
+			
+
+            
+			<div class="box box-warning">
+            <div class="box-header with-border">
+              <h3 class="box-title">Category Form</h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+           
+      <div class="box-body"></div>
+      </div>
+				
+				
+				
+				
+				
+								include_once "connectdb.php";
+								
+								session_start();
+
+								if($_SESSION['useremail']=="" OR $_SESSION['role']=="User"){
+									header("location:index.php");
+								}
+
+
+                                upload
