@@ -42,66 +42,68 @@ include_once "header.php";
             <!-- form start -->
            
                  <div class="box-body">
-                    <table id="producttable" class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Product Name</th>
-                                    <th>Category</th>
-                                    <th>Purchase_Price</th>
-                                    <th>Sale_Price</th>
-                                    <th>Stock</th>
-                                    <th>Description</th>
-                                    <th>Image</th>
-                                    <th>View</th>
-                                    <th>Edit</th>
-                                    <th>Delete</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                
-                                $select = $pdo->prepare("select * from tbl_product order by pid desc");
-                                
-                                $select->execute();
-                                
-                                while($row=$select->fetch(PDO::FETCH_OBJ))
-                                {
-                                    echo 
-                                        '
+                    <div class="" style="overflow-x:auto;">
+                            <table id="producttable" class="table table-striped">
+                                    <thead>
                                         <tr>
-                                            <td>'.$row->pid.'</td>
-                                            <td>'.$row->pname.'</td>
-                                            <td>'.$row->pcategory.'</td>
-                                            <td>'.$row->purchaseprice.'</td>
-                                            <td>'.$row->saleprice.'</td>
-                                            <td>'.$row->pstock.'</td>
-                                            <td>'.$row->pdescription.'</td>
-                                            <td>
-												<img src="productimages/'.$row->pimage.'" class="img-rounded" width="80px" height="60px"> 
-											</td>
-                                            <td>
-                                                <a href="viewproduct.php?id='.$row->pid.'" class="btn btn-success" role="button">
-                                                    <span class="glyphicon glyphicon-eye-open" style="color:#ffffff" data-toggle="tooltip" title="view_product"></span>
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <a href="editproduct.php?id='.$row->pid.'" class="btn btn-info" role="button">
-                                                    <span class="glyphicon glyphicon-edit" style="color:#ffffff" data-toggle="tooltip" title="edit_product"></span>
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <button id='.$row->pid.' class="btn btn-danger btndelete">
-                                                    <span class="glyphicon glyphicon-trash" style="color:#ffffff" data-toggle="tooltip" title="delete_product"></span>
-                                                </button>
-                                            </td>
+                                            <th>#</th>
+                                            <th>Product Name</th>
+                                            <th>Category</th>
+                                            <th>Purchase_Price</th>
+                                            <th>Sale_Price</th>
+                                            <th>Stock</th>
+                                            <th>Description</th>
+                                            <th>Image</th>
+                                            <th>View</th>
+                                            <th>Edit</th>
+                                            <th>Delete</th>
                                         </tr>
-                                        ';    
-                                }
-                                
-                                ?>
-                            </tbody>
-                        </table>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        
+                                        $select = $pdo->prepare("select * from tbl_product order by pid desc");
+                                        
+                                        $select->execute();
+                                        
+                                        while($row=$select->fetch(PDO::FETCH_OBJ))
+                                        {
+                                            echo 
+                                                '
+                                                <tr>
+                                                    <td>'.$row->pid.'</td>
+                                                    <td>'.$row->pname.'</td>
+                                                    <td>'.$row->pcategory.'</td>
+                                                    <td>'.$row->purchaseprice.'</td>
+                                                    <td>'.$row->saleprice.'</td>
+                                                    <td>'.$row->pstock.'</td>
+                                                    <td>'.$row->pdescription.'</td>
+                                                    <td>
+                                                        <img src="productimages/'.$row->pimage.'" class="img-rounded" width="80px" height="60px"> 
+                                                    </td>
+                                                    <td>
+                                                        <a href="viewproduct.php?id='.$row->pid.'" class="btn btn-success" role="button">
+                                                            <span class="glyphicon glyphicon-eye-open" style="color:#ffffff" data-toggle="tooltip" title="view_product"></span>
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        <a href="editproduct.php?id='.$row->pid.'" class="btn btn-info" role="button">
+                                                            <span class="glyphicon glyphicon-edit" style="color:#ffffff" data-toggle="tooltip" title="edit_product"></span>
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        <button id='.$row->pid.' class="btn btn-danger btndelete">
+                                                            <span class="glyphicon glyphicon-trash" style="color:#ffffff" data-toggle="tooltip" title="delete_product"></span>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                ';    
+                                        }
+                                        
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
                  </div>
             
             </div>

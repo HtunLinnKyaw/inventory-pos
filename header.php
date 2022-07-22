@@ -10,22 +10,32 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <title>Admin | Dashboard</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    
+
+
+
+
     <script src="bower_components/sweetalert/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    
+
     <script src="dist/js/adminlte.min.js"></script>
-    
+
     <script src="bower_components/sweetalert/sweetalert2.all.min.js"></script>
 
     <!-- DataTables -->
     <script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-   
 
-    
+    <!-- iCheck 1.0.1 -->
+    <script src="plugins/iCheck/icheck.min.js"></script>
+    <!-- Select2 -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@x.x.x/dist/select2-bootstrap4.min.css">
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
     <!-- Ionicons -->
@@ -35,13 +45,29 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
           page. However, you can choose any other skin. Make sure you
           apply the skin class to the body tag so the changes take effect. -->
-    <link rel="stylesheet" href="dist/css/skins/skin-blue.min.css">
-    
-      <!-- DataTables -->
-  <link rel="stylesheet" href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
 
+    <link rel="stylesheet" href="dist/css/skins/skin-blue.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
     <!-- Google Font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css">
+    <!-- bootstrap datepicker -->
+    <link rel="stylesheet" href="bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+    <script src="bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- bootstrap datepicker -->
+    <script src="bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <!-- radio and check box plugin -->
+    <link rel="stylesheet" href="plugins/iCheck/all.css">
+    <!-- Select2 -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="bower_components/select2/dist/css/select2overwrite.css">
+
+
+
+
 </head>
 <!--
 BODY TAG OPTIONS:
@@ -169,10 +195,11 @@ desired effect
                 <li><a href="category.php"><i class="fa fa-list-alt"></i> <span>Category</span></a></li>
                 <li><a href="addproduct.php"><i class="fa fa-product-hunt"></i> <span>Add Product</span></a></li>
                 <li><a href="productlist.php"><i class="fa fa-th-list"></i> <span>Product List</span></a></li>
+                <li><a href="createorder.php"><i class="fa fa-th-list"></i> <span>Creatorder</span></a></li>
                 <li><a href="registration.php"><i class="fa fa-registered"></i> <span>Registration</span></a></li>
-                
-                
-                
+
+
+
 <!--
                 <li class="treeview">
                     <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
@@ -186,7 +213,7 @@ desired effect
                     </ul>
                 </li>
 -->
-           
+
             </ul>
             <!-- /.sidebar-menu -->
         </section>
