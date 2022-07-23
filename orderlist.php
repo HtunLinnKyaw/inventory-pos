@@ -80,7 +80,7 @@ include_once "header.php";
                                                         </a>
                                                     </td>
                                                     <td>
-                                                        <a href="editproduct.php?id='.$row->invoice_id.'" class="btn btn-info" role="button">
+                                                        <a href="editorder.php?id='.$row->invoice_id.'" class="btn btn-info" role="button">
                                                             <span class="glyphicon glyphicon-edit" style="color:#ffffff" data-toggle="tooltip" title="edit_order"></span>
                                                         </a>
                                                     </td>

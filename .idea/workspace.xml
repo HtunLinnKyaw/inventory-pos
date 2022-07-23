@@ -20,15 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="77085629-c298-4e90-b77b-932d2b9fdc45" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/orderlist.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/editorder.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/bootstrap-daterangepicker/daterangepicker.css" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/bootstrap-daterangepicker/daterangepicker.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/select2/dist/css/select2.css" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/select2/dist/css/select2.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower_components/select2/dist/css/select2.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/bower_components/select2/dist/css/select2.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/header.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/productdelete.php" beforeDir="false" afterPath="$PROJECT_DIR$/productdelete.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/productlist.php" beforeDir="false" afterPath="$PROJECT_DIR$/productlist.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.php" beforeDir="false" afterPath="$PROJECT_DIR$/test.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/orderlist.php" beforeDir="false" afterPath="$PROJECT_DIR$/orderlist.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,6 +66,8 @@
       <workItem from="1657022484813" duration="5683000" />
       <workItem from="1658215849827" duration="3690000" />
       <workItem from="1658497411732" duration="7922000" />
+      <workItem from="1658508072788" duration="675000" />
+      <workItem from="1658570193080" duration="6615000" />
     </task>
     <servers />
   </component>
@@ -88,6 +84,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="552" y="178" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1658499000163">
@@ -98,5 +95,9 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="196" height="457" key="HiddenNamespacesPopup/0.0.1920.1040@0.0.1920.1040" timestamp="1658499016973" />
+    <state x="794" y="443" key="NewPhpFileDialog" timestamp="1658570323370">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="794" y="443" key="NewPhpFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1658570323370" />
   </component>
 </project>
