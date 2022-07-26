@@ -50,7 +50,28 @@ $pdf->SetFont('Courier','BI',8);
 $pdf->Cell(40,4,$row->order_date,0,1,'');
 
 // product table code
+$pdf->SetX(7);
+$pdf->SetFont('Courier','B',8);
 
+$pdf->Cell(34,5,'PRODUCT',1,0,'C');
+$pdf->Cell(11,5,'QTY',1,0,'C');
+$pdf->Cell(8,5,'PRICE',1,0,'C');
+$pdf->Cell(12,5,'TOTAL',1,1,'C');
+
+$select= $pdo->prepare("select * from tbl_invoice_details where invoice_id=$id");
+$select->execute();
+
+while($item=$select->fetch(PDO::FETCH_OBJ)){
+    $pdf->SetX(7);
+    $pdf->SetFont('Helvetica','B',5);
+    $pdf->Cell(34,5,$item->product_name,1,0,'L');
+    $pdf->SetFont('Helvetica','B',8);
+    $pdf->Cell(11,5,$item->qty,1,0,'C');
+    $pdf->Cell(8,5,$item->price,1,0,'C');
+    $pdf->Cell(12,5,$item->price*$item->qty,1,1,'C');
+}
+
+//
 
 $pdf->SetX(7);
 $pdf->SetFont('courier','B',8);
