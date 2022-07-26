@@ -75,7 +75,7 @@ include_once "header.php";
                                                     <td>'.$row->payment_type.'</td>
                                                     
                                                     <td>
-                                                        <a href="viewproduct.php?id='.$row->invoice_id.'" class="btn btn-warning" role="button">
+                                                        <a href="invoice_80mm.php?id='.$row->invoice_id.'" class="btn btn-warning" role="button" target="_blank">
                                                             <span class="glyphicon glyphicon-print" style="color:#ffffff" data-toggle="tooltip" title="print_invoice"></span>
                                                         </a>
                                                     </td>
@@ -119,6 +119,58 @@ include_once "header.php";
     $(document).ready( function () {
         $('[data-toggle="tooltip"]').tooltip();
     } );
+</script>
+
+// delete script
+
+<script>
+
+    $(document).ready(function(){
+        $('.btndelete').click(function(){
+
+            var tdh = $(this);
+            var id = $(this).attr("id");
+
+            //alert(id);
+
+            Swal.fire({
+                title: 'Are you sure! Do you want to delete Order?',
+                text: "Once deleted,You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    $.ajax({
+
+                        url:'orderdelete.php',
+                        type:'post',
+                        data:{
+
+                            pidd:id
+                        },
+                        success:function(data){
+                            tdh.parents('tr').hide();
+                        }
+
+                    });
+
+
+                    Swal.fire(
+                        'Deleted!',
+                        'Your Order has been deleted.',
+                        'success'
+                    )
+                }
+            })
+
+
+        });
+    });
+
 </script>
 
 <?php

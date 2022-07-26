@@ -49,15 +49,18 @@ $row = $select->fetch(PDO::FETCH_ASSOC);
 
 if(isset($_POST['btnupdateorder'])){
 
-    $customer_name = $_POST['txtcustomer'];
-    $order_date = date('Y-m-d',strtotime($_POST['orderdate']));
-    $subtotal = $_POST['txtsubtotal'];
-    $tax = $_POST['txttax'];
-    $discount = $_POST['txtdiscount'];
-    $total = $_POST['txttotal'];
-    $paid = $_POST['txtpaid'];
-    $due = $_POST['txtdue'];
-    $payment_type = $_POST['rb'];
+
+    // steps for btnupdateorder button.
+    // 1) Get values from text feilds and from array in variables.
+    $txt_customer_name = $_POST['txtcustomer'];
+    $txt_order_date = date('Y-m-d',strtotime($_POST['orderdate']));
+    $txt_subtotal = $_POST['txtsubtotal'];
+    $txt_tax = $_POST['txttax'];
+    $txt_discount = $_POST['txtdiscount'];
+    $txt_total = $_POST['txttotal'];
+    $txt_paid = $_POST['txtpaid'];
+    $txt_due = $_POST['txtdue'];
+    $txt_payment_type = $_POST['rb'];
     ///////////////////////////
 
     $arr_productid = $_POST['productid'];
@@ -67,49 +70,79 @@ if(isset($_POST['btnupdateorder'])){
     $arr_price = $_POST['price'];
     $arr_total = $_POST['total'];
 
-    $insert = $pdo->prepare("insert into tbl_invoice(customer_name,order_date,subtotal,tax,discount,total,paid,due,payment_type)values(:cust,:orderdate,:stotal,:tax,:disc,:total,:paid,:due,:ptype)");
+    // 2) Write update query for tbl_product stock
+    foreach ($row_invoice_details as $item_invoice_details) {
 
-    $insert->bindParam(':cust',$customer_name);
-    $insert->bindParam(':orderdate',$order_date);
-    $insert->bindParam(':stotal',$subtotal);
-    $insert->bindParam(':tax',$tax);
-    $insert->bindParam(':disc',$discount);
-    $insert->bindParam(':total',$total);
-    $insert->bindParam(':paid',$paid);
-    $insert->bindParam(':due',$due);
-    $insert->bindParam(':ptype',$payment_type);
+        $updateproduct = $pdo->prepare("update tbl_product set pstock=pstock+".$item_invoice_details['qty']." where pid='".$row_invoice_details['product_id']."'");
+        $updateproduct->execute();
+    }
+    // 3) Write delete query for tbl_invoice_details table date where invoice_id =$id.
+    $delete_invoice_details = $pdo->prepare("delete from tbl_inovice_details where invoice_id=$id");
+    $delete_invoice_details->execute();
 
-    $insert->execute();
 
-    // 2nd insert query for tbl_invoices details
+
+
+    // 4) Write update query for tbl_invoice table data.
+    $update = $pdo->prepare("update tbl_invoice set customer_name=:cust,order_date=:order_date,subtotal=:stotal,tax=:tax,discount=:disc,total=:total,paid=:paid,due=:due,payment_type=:ptype where invoice_id=$id");
+    $update->bindParam(':cust',$txt_customer_name);
+    $update->bindParam(':orderdate',$txt_order_date);
+    $update->bindParam(':stotal',$txt_subtotal);
+    $update->bindParam(':tax',$txt_tax);
+    $update->bindParam(':disc',$txt_discount);
+    $update->bindParam(':total',$txt_total);
+    $update->bindParam(':paid',$txt_paid);
+    $update->bindParam(':due',$txt_due);
+    $update->bindParam(':ptype',$txt_payment_type);
+
+    $update->execute();
+
+    // insert query for tbl_invoices details
 
     $invoice_id  = $pdo->lastInsertId();
     if($invoice_id!=null){
 
         for($i=0; $i<count($arr_productid); $i++){
 
-            $rem_qty=$arr_stock[$i]-$arr_qty[$i];
+            // 5) Write select query for tbl_product table to get out stock value.
 
-            if($rem_qty<0){
-                return "Order Is Not Complete";
-            }else{
-                $update = $pdo->prepare("update tbl_product SET pstock='$rem_qty' where pid='".$arr_productid[$i]."'");
+            $selectpdt = $pdo->prepare("select * from tbl_product where pid='".$arr_productid[$i]."'");
+            $selectpdt->execute();
 
-                $update->execute();
+            while ($rowpdt=$selectpdt->fetch(PDO::FETCH_OBJ)){
 
+                $db_stock[$i] = $rowpdt->pstock;
+
+                $rem_qty=$db_stock[$i]-$arr_qty[$i];
+
+                if($rem_qty<0){
+                    return "Order Is Not Complete";
+                }else{
+                    // 6) Write update query for tbl_product table to update stock values.
+
+                    $update = $pdo->prepare("update tbl_product SET pstock='$rem_qty' where pid='".$arr_productid[$i]."'");
+
+                    $update->execute();
+
+
+                }
 
             }
 
 
 
+
+            // 7) Write insert query for tbl_invoice_details for insert new records.
+
+
             $insert= $pdo->prepare("insert into tbl_invoice_details(invoice_id,product_id,product_name,qty,price,order_date)values(:invid,:pid,:pname,:qty,:price,:orderdate)");
 
-            $insert->bindParam(':invid',$invoice_id);
+            $insert->bindParam(':invid',$id);
             $insert->bindParam(':pid',$arr_productid[$i]);
             $insert->bindParam(':pname',$arr_productname[$i]);
             $insert->bindParam(':qty',$arr_qty[$i]);
             $insert->bindParam(':price',$arr_price[$i]);
-            $insert->bindParam(':orderdate',$order_date);
+            $insert->bindParam(':orderdate',$txt_order_date);
 
             $insert->execute();
 
@@ -118,7 +151,9 @@ if(isset($_POST['btnupdateorder'])){
         }
         //echo "successfully created order";
         header("location:orderlist.php");
+
     }
+
 
 }
 
@@ -221,7 +256,7 @@ include_once "header.php";
                                     <tr>
                                         <?php
 
-                                       echo ' <td><input type="hidden" class="form-control pname" name="productname[]" readonly></td>';
+                                       echo ' <td><input type="hidden" class="form-control pname" name="productname[]" value="'.$row_product['pname'].'" readonly></td>';
                                        echo ' <td><select class="form-control  productidedit" name="productid[]" style="width: 100%;"><option value="">Select Option</option>'.fill_product($pdo,$item_invoice_details['product_id']).'</select></td>';
                                        echo ' <td><input type="text" class="form-control stock" name="stock[]" value="'.$row_product['pstock'].'" readonly></td>';
                                        echo ' <td><input type="text" class="form-control price" name="price[]" value="'.$row_product['saleprice'].'" readonly></td>';
@@ -240,6 +275,7 @@ include_once "header.php";
 
 
                 </div> <!-- this is for table -->
+
 
                 <div class="box-body">
 
@@ -380,6 +416,7 @@ include_once "header.php";
                     tr.find(".qty").val(1);
                     tr.find(".total").val(tr.find(".qty").val() * tr.find(".price").val());
                     calculate(0,0);
+                    $("#txtpaid").val("");
                 }
 
             });
@@ -408,11 +445,12 @@ include_once "header.php";
 
             $(this).closest('tr').remove();
             calculate(0,0);
-            $("#txtpaid").val(0);
+           // $("#txtpaid").val(0);
+            $("#txtpaid").val("");
         }); // btn remove and here
 
         $("#producttable").delegate(".qty","keyup change",function(){
-
+            $("#txtpaid").val("");
             var quantity = $(this);
             var tr = $(this).parent().parent();
 

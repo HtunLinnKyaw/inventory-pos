@@ -196,6 +196,7 @@ desired effect
                 <li><a href="addproduct.php"><i class="fa fa-product-hunt"></i> <span>Add Product</span></a></li>
                 <li><a href="productlist.php"><i class="fa fa-th-list"></i> <span>Product List</span></a></li>
                 <li><a href="createorder.php"><i class="fa fa-th-list"></i> <span>Creatorder</span></a></li>
+                <li><a href="orderlist.php"><i class="fa fa-first-order"></i> <span>Order List</span></a></li>
                 <li><a href="registration.php"><i class="fa fa-registered"></i> <span>Registration</span></a></li>
 
 

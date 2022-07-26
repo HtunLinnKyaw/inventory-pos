@@ -1,0 +1,110 @@
+<script type="text/javascript">
+                jQuery(function validation() {
+                 Swal.fire({
+                      position: \'center\',
+                      icon: \'success\',
+                      title: "Good Job!",
+                      text: \'Account is deleted\',
+                      showConfirmButton: false,
+                      timer: 1500
+                    });
+                });
+            </script>
+
+			 $error = '<script type="text/javascript">
+                jQuery(function validation() {
+                Swal.fire({
+                    position: \'center\',
+                    icon: \'error\',
+                    title: "Error!",
+                    text: \'Max File should be 1MB\',
+                    showConfirmButton: false,
+                    timer: 1500
+                    });
+                });
+            </script>';
+
+            echo $error;
+
+
+
+
+			<div class="box box-warning">
+            <div class="box-header with-border">
+              <h3 class="box-title">Category Form</h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+
+      <div class="box-body"></div>
+      </div>
+
+
+
+
+
+								include_once "connectdb.php";
+
+								session_start();
+
+								if($_SESSION['useremail']=="" OR $_SESSION['role']=="User"){
+									header("location:index.php");
+								}
+
+
+                                upload
+
+
+
+                                $insert = $pdo->prepare("insert into tbl_invoice(customer_name,order_date,subtotal,tax,discount,total,paid,due,payment_type)values(:cust,:orderdate,:stotal,:tax,:disc,:total,:paid,:due,:ptype)");
+
+                                    $insert->bindParam(':cust',$customer_name);
+                                    $insert->bindParam(':orderdate',$order_date);
+                                    $insert->bindParam(':stotal',$subtotal);
+                                    $insert->bindParam(':tax',$tax);
+                                    $insert->bindParam(':disc',$discount);
+                                    $insert->bindParam(':total',$total);
+                                    $insert->bindParam(':paid',$paid);
+                                    $insert->bindParam(':due',$due);
+                                    $insert->bindParam(':ptype',$payment_type);
+
+                                    $insert->execute();
+
+                                    // 2nd insert query for tbl_invoices details
+
+                                    $invoice_id  = $pdo->lastInsertId();
+                                    if($invoice_id!=null){
+
+                                        for($i=0; $i<count($arr_productid); $i++){
+
+                                            $rem_qty=$arr_stock[$i]-$arr_qty[$i];
+
+                                            if($rem_qty<0){
+                                                return "Order Is Not Complete";
+                                            }else{
+                                                $update = $pdo->prepare("update tbl_product SET pstock='$rem_qty' where pid='".$arr_productid[$i]."'");
+
+                                                $update->execute();
+
+
+                                            }
+
+
+
+                                            $insert= $pdo->prepare("insert into tbl_invoice_details(invoice_id,product_id,product_name,qty,price,order_date)values(:invid,:pid,:pname,:qty,:price,:orderdate)");
+
+                                            $insert->bindParam(':invid',$invoice_id);
+                                            $insert->bindParam(':pid',$arr_productid[$i]);
+                                            $insert->bindParam(':pname',$arr_productname[$i]);
+                                            $insert->bindParam(':qty',$arr_qty[$i]);
+                                            $insert->bindParam(':price',$arr_price[$i]);
+                                            $insert->bindParam(':orderdate',$order_date);
+
+                                            $insert->execute();
+
+
+
+                                        }
+                                        //echo "successfully created order";
+                                        header("location:orderlist.php");
+                                    }
